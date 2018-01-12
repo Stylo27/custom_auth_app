@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+
+  before_action :authorize, except: [:index, :show]
+
   def index
     @posts = Post.all
   end
@@ -8,7 +11,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.create(post_params)
-    if post.save?
+    if @post.save
       redirect_to @post
     else
       render 'new'
