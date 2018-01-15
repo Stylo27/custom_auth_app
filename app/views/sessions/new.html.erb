@@ -1,6 +1,16 @@
 <h1>Sign in</h1>
-<%= form_tag '/login' do %>
-  <p>Email: <%= text_field_tag :email %></p>
-  <p>Password: <%= password_field_tag :password_digest %></p>
-  <%= submit_tag 'Sign in' %>
+<%= form_for :session, url: login_path do |f| %>
+  <p>
+    <%= f.label :email %><br>
+    <%= f.email_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </p>
+
+  <p>
+    <%= f.submit 'Sign in' %>
+  </p>
 <% end -%>
