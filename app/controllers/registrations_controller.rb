@@ -6,7 +6,8 @@ class RegistrationsController < ApplicationController
     user = User.create(registration_params)
     if user.save
       session[:user_id] = user.id
-      redirect_to root_path, notice: 'You are registered'
+      flash[:success] = 'You are registered'
+      redirect_to root_path
     else
       flash.now[:error] = user.errors.full_messages
       render 'new'

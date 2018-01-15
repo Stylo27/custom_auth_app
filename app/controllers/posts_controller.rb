@@ -12,9 +12,11 @@ class PostsController < ApplicationController
   def create
     @post = Post.create(post_params)
     if @post.save
-      redirect_to @post, notice: 'Created'
+      flash[:success] = 'Created'
+      redirect_to @post
     else
-      render 'new', error: @post.errors.full_messages
+      flash[:error] = @post.errors.full_messages
+      render 'new'
     end
   end
 
@@ -29,15 +31,18 @@ class PostsController < ApplicationController
   def update
     @post = set_post
     if @post.update(post_params)
-      redirect_to @post, notice: 'Updated'
+      flash[:notice] = 'Updated'
+      redirect_to @post
     else
-      render 'edit', error: @post.errors.full_messages
+      flash[:error] = @post.errors.full_messages
+      render 'edit'
     end
   end
 
   def destroy
     set_post.destroy
-    redirect_to root_path, notice: 'Deleted'
+    flash[:notice] = 'Deleted'
+    redirect_to root_path
   end
 
   private

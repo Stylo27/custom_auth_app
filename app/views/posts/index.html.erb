@@ -1,10 +1,15 @@
-<h1>All posts</h1>
-<ul>
-  <% @posts.each do |post| %>
-    <li><%= link_to post.title, post_path(post.id) %></li>
-  <% end -%>
-</ul>
+<div class="row">
+  <div class="col-md-4">
+    <h1>All posts</h1>
+    <% @posts.each do |post| %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><%= post.title %></div>
+        <div class="panel-body">
+          <%= post.body %><br><br>
+          <%= button_to 'Show post', post_path(post.id), method: 'get', class: 'btn' %>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+</div>
 
-<% if current_user %>
-  <%= button_to "Create post", new_post_path, method: "get" %>
-<% end -%>
