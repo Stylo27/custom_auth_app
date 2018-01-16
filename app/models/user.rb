@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_many :posts
   has_secure_password
   before_create { self.email = email.downcase }
-  before_create { generate_token(:auth_token) }
+  before_create { generate_token }
   validates_presence_of :email, :password_digest, :password_confirmation
   validates :email, uniqueness: true
 
@@ -11,9 +11,7 @@ class User < ApplicationRecord
     true if self.admin_status
   end
 
-  def generate_token(column)
-    begin
-      self[column] = SecureRandom.hex(10)
-    end while User.exists?(column => self[column])
+  def generate_token
+    self.auth_token = SecureRandom.hex(10)
   end
 end

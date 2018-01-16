@@ -15,4 +15,11 @@ module ApplicationHelper
     end
   end
 
+  def change_token
+    unless current_user.nil?
+      current_user.update_attribute('auth_token', current_user.generate_token)
+      cookies.permanent[:auth_token] = current_user.auth_token
+    end
+  end
+
 end
