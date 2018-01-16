@@ -5,7 +5,7 @@ class RegistrationsController < ApplicationController
   def create
     user = User.create(registration_params)
     if user.save
-      session[:user_id] = user.id
+      cookies.permanent[:auth_token] = user.auth_token
       flash[:success] = 'You are registered'
       redirect_to root_path
     else
