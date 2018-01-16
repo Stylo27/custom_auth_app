@@ -3,7 +3,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="btn-group pull-right">
-            <% if @post.user == current_user || current_user.is_admin? %>
+            <% if @post.user == current_user || current_user&.is_admin? %>
               <%= link_to 'Edit', edit_post_path(@post.id), method: 'get', class: 'btn btn-info' %>
               <%= link_to 'Delete', post_path, method: 'delete', data: { confirm: 'Are you sure ?' }, class: 'btn btn-danger' %>
             <% end -%>
