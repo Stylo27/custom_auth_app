@@ -6,7 +6,6 @@ class User < ApplicationRecord
   validates_presence_of :email, :password_digest, :password_confirmation
   validates :email, uniqueness: true
 
-
   def is_admin?
     true if self.admin_status
   end
