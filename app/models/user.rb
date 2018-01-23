@@ -5,6 +5,4 @@ class User < ApplicationRecord
          :rememberable, :trackable
   has_many :posts
 
-  validates_presence_of :email, :password, :password_confirmation
-  validates :email, uniqueness: true
 end
