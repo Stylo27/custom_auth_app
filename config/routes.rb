@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
- root 'posts#index'
+  devise_for :users
+  root 'posts#index'
 
- resources :posts
- resources :registrations, only: [:new, :create]
+  resources :posts
 
- get '/login' => 'sessions#new'
- post '/login' => 'sessions#create'
- get '/logout' => 'sessions#destroy'
 end

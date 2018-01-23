@@ -1,13 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def current_user
-    @current_user = User.find_by_auth_token(cookies[:auth_token]) if cookies[:auth_token]
+  protected
+
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :password, :confirmation_password])
   end
-
-  def authorize
-    redirect_to root_path unless current_user
-  end
-
 end

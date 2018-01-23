@@ -1,16 +1,10 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :rememberable, :trackable, :validatable
   has_many :posts
-  has_secure_password
-  before_create { self.email = email.downcase }
-  before_create { generate_token }
-  validates_presence_of :email, :password_digest, :password_confirmation
-  validates :email, uniqueness: true
 
-  def is_admin?
-    true if self.admin_status
-  end
-
-  def generate_token
-    self.auth_token = SecureRandom.hex(10)
-  end
+  # validates_presence_of :email, :password, :password_confirmation
+  # validates :email, uniqueness: true
 end

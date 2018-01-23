@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authorize, except: [:index, :show]
+  before_action :authenticate_user!, except: [ :index, :show ]
 
   def index
     @posts = Post.all.reverse
@@ -10,7 +10,6 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.create(post_params)
-    @post.user_id = current_user.id
     if @post.save
       flash[:success] = 'Created'
       redirect_to @post
